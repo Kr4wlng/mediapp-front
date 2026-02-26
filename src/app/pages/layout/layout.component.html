@@ -46,6 +46,7 @@
             <mat-divider></mat-divider>
 
             <!-- Configuramos los botones de opciones para el menú de la barra lateral (Sidenav) -->
+            <!-- routerLink => Es el argumento que nos permitirá hacer la navegación por rutas -->
             <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
                 routerLink="/pages/search" style="cursor: pointer;">
                 <mat-icon> search </mat-icon>
@@ -71,7 +72,7 @@
             <mat-divider></mat-divider>
 
             <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
-                routerLink="/pages/medic" style="cursor: pointer;">
+                routerLink="/medic" style="cursor: pointer;">
                 <mat-icon> healing </mat-icon>
                 <span> Medic </span>
             </button>
@@ -87,7 +88,7 @@
             <mat-divider></mat-divider>
 
             <button class="myButton" mat-menu-item (click)="sidenav.toggle()"
-                routerLink="/pages/patient" style="cursor: pointer;">
+                routerLink="/patient" style="cursor: pointer;">
                 <mat-icon> accessibility </mat-icon>
                 <span> Patient </span>
             </button>
@@ -106,7 +107,9 @@
 
         <!-- mat-sidenav-content => Hace referencia al contenido que se mostrará -->
         <mat-sidenav-content>
-            <app-patient></app-patient>
+            <!-- REGLAS DE NAVEGACION | routes.ts -->
+             <!-- router-outlet => Hace que las reglas definidas en los archivos routes.ts se puedan respetar -->
+            <router-outlet/>
         </mat-sidenav-content>
 
     </mat-sidenav-container>
