@@ -6,11 +6,13 @@ import { MaterialModule } from '../../material/material.module';
 import { filter } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterLinkWithHref } from "@angular/router";
 
 @Component({
   selector: 'app-patient',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, RouterOutlet, RouterLink],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
 })
