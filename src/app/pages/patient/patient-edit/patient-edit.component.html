@@ -1,1 +1,43 @@
-<p>patient-edit works!</p>
+<form [formGroup]="form" class="example-container" (submit)="operate()">
+
+    <div [hidden] = "true">
+        <mat-form-field>
+            <input matInput placeholder="ID" required formControlName="idPatient">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <input matInput placeholder="firstName" required formControlName="firstName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="lastName" required formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="dni" required formControlName="dni">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="address" required formControlName="address">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="phone" required formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="email" required formControlName="email">
+    </mat-form-field>
+
+    <button mat-button type="submit">
+        <mat-icon> done </mat-icon>
+        <span> Done </span>
+    </button>
+
+    <button mat-button type="button" color="accent" routerLink="/pages/patient">
+        <mat-icon> cancel </mat-icon>
+        <span> Cancel </span>
+    </button>
+
+</form>
