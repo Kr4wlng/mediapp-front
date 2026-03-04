@@ -4,6 +4,15 @@
     <div class="example-container">
 
         <mat-form-field>
+            <mat-label> Specialty </mat-label>
+            <mat-select [(ngModel)]="medic.idSpecialty">
+                @for (sp of specialties; track $index) {
+                    <mat-option [value]="sp.idSpecialty">{{sp.nameSpecialty}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
             <input matInput placeholder="Primary Name" [(ngModel)]="medic.primaryName">
         </mat-form-field>
 
@@ -23,8 +32,8 @@
             <img mat-card-image [src]="medic.photo" alt="Photo of medic">
         }
 
-        <button mat-button> Done </button>
-        <button mat-button color="accent"> Cancel </button>
+        <button mat-button (click)="operate()"> Done </button>
+        <button mat-button color="accent" (click)="close()"> Cancel </button>
 
     </div>
 </mat-dialog-content>

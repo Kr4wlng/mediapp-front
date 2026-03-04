@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicDialogComponent } from './medic-dialog/medic-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-medic',
@@ -30,11 +32,15 @@ export class MedicComponent implements OnInit{
 
   constructor(
     private medicService: MedicService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
-    this.medicService.findAll().subscribe(data => this.createTable(data))
+    this.medicService.findAll().subscribe(data => this.createTable(data));
+
+    this.medicService.getMedicChange().subscribe(data => this.createTable(data));
+    this.medicService.getMessageChange().subscribe(data => this._snackBar.open(data, "INFO", {duration: 2000}))
   }
 
   createTable(data: Medic[]){
@@ -50,7 +56,17 @@ export class MedicComponent implements OnInit{
   openDialog(medic?: Medic){
     this._dialog.open(MedicDialogComponent, {
       width: '750px',
-      data: medic
+      data: medic,
+      disableClose: true
+    })
+  }
+
+  delete(idMedic: number){
+    this.medicService.delete(idMedic)
+    .pipe(switchMap( () => this.medicService.findAll()))
+    .subscribe(data => {
+      this.medicService.setMedicChange(data);
+      this.medicService.setMessageChange('DELETED!')
     })
   }
 
