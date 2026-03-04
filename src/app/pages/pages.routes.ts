@@ -5,6 +5,7 @@ import { PatientEditComponent } from './patient/patient-edit/patient-edit.compon
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { SpecialtyEditComponent } from './specialty/specialty-edit/specialty-edit.component';
 import { ExamComponent } from './exam/exam.component';
+import { ConsultWizardComponent } from './consult-wizard/consult-wizard.component';
 
 export const pagesRoutes: Routes = [
   {
@@ -25,4 +26,5 @@ export const pagesRoutes: Routes = [
   },
   { path: 'medic', component: MedicComponent },
   { path: 'exam', component: ExamComponent },
+  { path: 'consult-wizard', component: ConsultWizardComponent },
 ];
