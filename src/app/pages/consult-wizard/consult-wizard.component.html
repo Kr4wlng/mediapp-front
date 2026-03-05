@@ -29,6 +29,24 @@
                     <input matInput placeholder="Treatment" formControlName="treatment">
                 </mat-form-field>
 
+                <button mat-button type="button" (click)="addDetail()"> Add Detail </button>
+
+                @for (det of details; track $index) {
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{$index + 1}} {{det.diagnosis}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-form-field>
+                            <textarea matInput placeholder="Treatment" value="{{det.treatment}}"></textarea>
+                        </mat-form-field>
+
+                        <button mat-button color="warm" type="button" (click)="removeDetail($index)"> Remove </button>
+                    </mat-expansion-panel>
+                }
+
             </form>
 
     </mat-step>
