@@ -15,20 +15,20 @@ export class GenericService<T> {
       return this.http.get<T[]>(this.url);
     }
   
-    findById(id: number) {
+  findById(id: number) {
       return this.http.get<T>(`${this.url}/${id}`);
-    }
+  }
   
-    save(t: T) {
+  save(t: T) {
       return this.http.post(this.url, t)
-    }
+  }
   
-    update(id: number, t: T){
+  update(id: number, t: T){
       return this.http.put(`${this.url}/${id}`, t)
-    }
+  }
   
-    delete(id: number) {
+  delete(id: number) {
       return this.http.delete(`${this.url}/${id}`);
-    }
+  }
 
 }

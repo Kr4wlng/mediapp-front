@@ -7,7 +7,7 @@
     </div>
 
     <mat-form-field>
-        <input matInput placeholder="firstName" required formControlName="firstName">
+        <input matInput placeholder="firstName" required formControlName="firstName" [readonly]="checkFirstName()">
         @if (f['firstName'].errors?.['required'] && f['firstName'].touched) {
             <small class="invalid">Is required</small>
         }
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput placeholder="lastName" required formControlName="lastName" [readonly]="checkFirstName()">
+        <input matInput placeholder="lastName" required formControlName="lastName">
         @if (f['lastName'].errors?.['required'] && f['lastName'].touched) {
             <small class="invalid">Is required</small>
         }

@@ -35,6 +35,7 @@ export class PatientEditComponent implements OnInit{
       email: new FormControl('', Validators.email),
     });
 
+    
     this.route.params.subscribe(data => {
       this.id = data['id'];
       this.isEdit = data['id'] != null;
