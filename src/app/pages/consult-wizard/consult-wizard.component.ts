@@ -13,6 +13,10 @@ import { Medic } from '../../models/medic';
 import { MedicService } from '../../services/medic.service';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { MatStepper } from '@angular/material/stepper';
+import { ConsultService } from '../../services/consult.service';
+import { Consult } from '../../models/consult';
+import { ConsultListExamDTOI } from '../../models/consultListExamDTOI';
+import { format } from 'date-fns'
 
 @Component({
   selector: 'app-consult-wizard',
@@ -48,7 +52,8 @@ export class ConsultWizardComponent implements OnInit{
     private patientService: PatientService,
     private examService: ExamService,
     private _snackBar: MatSnackBar,
-    private medicService: MedicService
+    private medicService: MedicService,
+    private consultService: ConsultService
   ){
 
   }
@@ -151,5 +156,41 @@ export class ConsultWizardComponent implements OnInit{
     } else {
       this._snackBar.open('Please select a consult number', 'INFO', {duration: 2000});
     }
+  }
+
+  get f(){
+    return this.firstFormGroup.controls;
+  }
+
+  save(){
+    const consult = new Consult();
+    consult.patient = this.firstFormGroup.value['patient'];
+    consult.medic = this.medicSelected;
+    consult.details = this.details;
+    consult.numConsult = `C${this.consultSelected}`;
+    consult.consultDate = format(this.firstFormGroup.value['consultDate'], "yyyy-MM-dd'T'HH:mm:ss");
+    consult.idUser = 1;
+
+    const dto : ConsultListExamDTOI = {
+      consult: consult,
+      lstExam: this.examsSelected
+    }
+
+    this.consultService.saveTransactional(dto).subscribe( () => {
+      this._snackBar.open('CREATED!', 'INFO', { duration: 2000 });
+
+      setTimeout( () => {
+        this.cleanControls();
+      }, 2000)
+    })
+  }
+
+  cleanControls(){
+    this.firstFormGroup.reset();
+    this.stepper.reset();
+    this.details = [];
+    this.examsSelected = [];
+    this.consultSelected = 0;
+    this.medicSelected = null;
   }
 }

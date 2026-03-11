@@ -115,6 +115,16 @@
 
     <mat-step>
         <ng-template matStepLabel> Review </ng-template>
+
+        <h3> Patient: {{f['patient']?.value?.firstName + ' ' + f['patient']?.value?.lastName}} </h3>
+        @if (medicSelected) {
+            <h3> Medic: {{medicSelected.primaryName + ' ' + medicSelected.surname}} </h3>
+        }
+
+        <h3> Consult Number: {{ 'C' + consultSelected }} </h3>
+
+        <button class="fixedLeft" mat-button matStepperPrevious style="float: left;"> Previous </button>
+        <button class="fixedRight" mat-button style="float: right;" (click)="save()"> Save </button>
     </mat-step>
 
 </mat-horizontal-stepper>
