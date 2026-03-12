@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ConsultListExamDTOI } from '../models/consultListExamDTOI';
 import { Consult } from '../models/consult';
 import { FilterConsultDTO } from '../models/filterConsultDTO';
+import { Exam } from '../models/exam';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,10 @@ export class ConsultService {
 
   searchOthers(dto: FilterConsultDTO){
     return this.http.post<Consult[]>(`${this.url}/search/others`, dto);
+  }
+
+  getExamsByIdConsult(idConsult: number){
+    return this.http.get<Exam[]>(`${environment.HOST}/consultexams/${idConsult}`);
   }
 
 }

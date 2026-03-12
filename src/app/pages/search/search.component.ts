@@ -70,6 +70,7 @@ export class SearchComponent implements OnInit{
     if(data.length === 0){
       this.message = "No data found"
     } else {
+      this.message = null;
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
