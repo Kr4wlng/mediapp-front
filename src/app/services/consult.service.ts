@@ -36,4 +36,8 @@ export class ConsultService {
     return this.http.get<Exam[]>(`${environment.HOST}/consultexams/${idConsult}`);
   }
 
+  callProceduresOrFunction(){
+    return this.http.get<any>(`${this.url}/callProcedureNative`)
+  }
+
 }

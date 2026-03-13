@@ -1,0 +1,12 @@
+<mat-toolbar> Charts, PDF & Image </mat-toolbar>
+
+
+<button mat-button (click)="change('line')"> Line </button>
+<button mat-button (click)="change('bar')"> Bar </button>
+<button mat-button (click)="change('doughnut')"> Doughnut </button>
+<button mat-button (click)="change('radar')"> Radar </button>
+<button mat-button (click)="change('pie')"> Pie </button>
+
+<div [hidden]="!chart">
+    <canvas id="canvas"></canvas>
+</div>
