@@ -33,6 +33,7 @@
     "@angular/router": "^21.1.0",
     "chart.js": "^4.5.1",
     "date-fns": "^4.1.0",
+    "ng2-pdf-viewer": "^10.4.0",
     "ngx-flexible-layout": "^21.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

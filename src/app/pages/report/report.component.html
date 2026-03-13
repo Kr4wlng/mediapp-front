@@ -10,3 +10,10 @@
 <div [hidden]="!chart">
     <canvas id="canvas"></canvas>
 </div>
+
+<button mat-button (click)="viewReport()"> View PDF </button>
+<button mat-button (click)="downloadReport()"> Download Report </button>
+
+@if (pdfSrc) {
+    <pdf-viewer [src]="pdfSrc" [render-text]="true" style="width: 800px; height: 800px;"></pdf-viewer>
+}

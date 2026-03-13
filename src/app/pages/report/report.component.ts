@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from "../../material/material.module";
 import { ConsultService } from '../../services/consult.service';
-import { Chart, ChartType, scales } from 'chart.js/auto'
+import { Chart, ChartType, scales } from 'chart.js/auto';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-report',
-  imports: [MaterialModule],
+  imports: [ MaterialModule, PdfViewerModule ],
   templateUrl: './report.component.html',
   styleUrl: './report.component.css',
 })
@@ -13,6 +14,7 @@ export class ReportComponent implements OnInit{
 
   chart: Chart;
   type: ChartType = 'line';
+  pdfSrc: string;
 
   constructor(private consultservice: ConsultService){}
 
@@ -85,6 +87,25 @@ export class ReportComponent implements OnInit{
       this.chart.destroy();
     }
     this.draw();
+  }
+
+  viewReport(){
+     this.consultservice.generateReport().subscribe(data => {
+      this.pdfSrc = window.URL.createObjectURL(data);
+     })
+  }
+
+  downloadReport(){
+    this.consultservice.generateReport().subscribe(data => {
+      const url = window.URL.createObjectURL(data);
+      // console.log(url);
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display: none');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = 'report.pdf';
+      a.click();
+    })
   }
 
 }

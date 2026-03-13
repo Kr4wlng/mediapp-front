@@ -39,5 +39,10 @@ export class ConsultService {
   callProceduresOrFunction(){
     return this.http.get<any>(`${this.url}/callProcedureNative`)
   }
+  
+  // pdf
+  generateReport(){
+    return this.http.get(`${this.url}/generateReport`, {responseType: 'blob'});
+  }
 
 }
