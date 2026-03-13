@@ -35,6 +35,14 @@ export class ReportComponent implements OnInit{
               data: quantities,
               borderColor: '#3cba9f',
               fill: false,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 182, 0, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
               borderWidth: 1,
             },
           ],
@@ -54,6 +62,29 @@ export class ReportComponent implements OnInit{
     });
   };
 
-  change(type: string){}
+  change(type: string){
+    switch(type){
+      case 'line' :
+        this.type = 'line';
+        break;
+      case 'bar' :
+        this.type = 'bar';
+        break;
+      case 'doughnut' :
+        this.type = 'doughnut';
+        break;
+      case 'radar':
+        this.type = 'radar';
+        break;
+      case 'pie' :
+        this.type = 'pie';
+        break;
+    }
+
+    if(this.chart != null){
+      this.chart.destroy();
+    }
+    this.draw();
+  }
 
 }
