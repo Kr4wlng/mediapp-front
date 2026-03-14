@@ -45,4 +45,16 @@ export class ConsultService {
     return this.http.get(`${this.url}/generateReport`, {responseType: 'blob'});
   }
 
+  // files, Image
+  saveFile(data: File){
+    const formdata: FormData = new FormData();
+    formdata.append('file', data);
+
+    return this.http.post(`${this.url}/saveFile`, formdata);
+  }
+
+  readFile(id: number){
+    return this.http.get(`${this.url}/readFile/${id}`, { responseType: 'blob' });
+  }
+
 }

@@ -17,3 +17,18 @@
 @if (pdfSrc) {
     <pdf-viewer [src]="pdfSrc" [render-text]="true" style="width: 800px; height: 800px;"></pdf-viewer>
 }
+
+<button mat-button onclick="document.getElementById('flFile').click()"> Select File </button>
+<input id="flFile" type="file" style="display: none;" (change)="selectFile($event)"> <!-- múltiple -->
+
+@if (filename) {
+    <p> Filename is: {{filename}} </p>
+}
+
+<button mat-button (click)="upload()" [disabled]="!selectedFiles"> Upload </button>
+
+<button mat-button (click)="viewImage()"> View Image </button>
+
+@if (imageData) {
+    <img mat-card [src]="imageData" width="500" height="500">
+}

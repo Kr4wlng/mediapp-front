@@ -3,6 +3,7 @@ import { MaterialModule } from "../../material/material.module";
 import { ConsultService } from '../../services/consult.service';
 import { Chart, ChartType, scales } from 'chart.js/auto';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-report',
@@ -15,8 +16,14 @@ export class ReportComponent implements OnInit{
   chart: Chart;
   type: ChartType = 'line';
   pdfSrc: string;
+  selectedFiles: FileList;
+  filename: string;
+  imageData: SafeResourceUrl;
 
-  constructor(private consultservice: ConsultService){}
+  constructor(
+    private consultservice: ConsultService,
+    private sanitizer: DomSanitizer
+  ){}
 
   ngOnInit(): void {
     this.draw();
@@ -106,6 +113,37 @@ export class ReportComponent implements OnInit{
       a.download = 'report.pdf';
       a.click();
     })
+  }
+
+  selectFile(e: any){
+    this.selectedFiles = e.target.files;
+    this.filename = e.target.files[0]?.name;
+  }
+
+  upload(){
+    this.consultservice.saveFile(this.selectedFiles.item(0)).subscribe();
+  }
+
+  viewImage(){
+    this.consultservice.readFile(1).subscribe(data => {
+      // console.log(data);
+      this.convertToBase64(data);
+    })
+  }
+
+  convertToBase64(data: any){
+    const reader = new FileReader();
+    reader.readAsDataURL(data);
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      // console.log(base64);
+      // this.imageData = base64;
+      this.applySanitizer(base64);
+    }
+  }
+
+  applySanitizer(base64: any){
+    this.imageData = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
   }
 
 }
