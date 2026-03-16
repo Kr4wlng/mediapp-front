@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MaterialModule } from "../../material/material.module";
 import { ConsultService } from '../../services/consult.service';
 import { Chart, ChartType, scales } from 'chart.js/auto';
@@ -19,6 +19,7 @@ export class ReportComponent implements OnInit{
   selectedFiles: FileList;
   filename: string;
   imageData: SafeResourceUrl;
+  imageSignal = signal(null);
 
   constructor(
     private consultservice: ConsultService,
@@ -144,6 +145,7 @@ export class ReportComponent implements OnInit{
 
   applySanitizer(base64: any){
     this.imageData = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
+    this.imageSignal.set(this.imageData);
   }
 
 }

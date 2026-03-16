@@ -30,5 +30,5 @@
 <button mat-button (click)="viewImage()"> View Image </button>
 
 @if (imageData) {
-    <img mat-card [src]="imageData" width="500" height="500">
+    <img mat-card [src]="imageSignal()" width="500" height="500">
 }
