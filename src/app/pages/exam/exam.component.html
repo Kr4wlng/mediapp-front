@@ -1,1 +1,20 @@
-<p>exam works!</p>
+<app-mat-table
+    [columns]="columnsDefinition"
+    [data]="exams"
+    [pagesSizeOptions]="[2, 10, 25]"
+>
+
+    <!-- Definir las acciones aqui usando ng template -->
+     <ng-template let-row>
+
+        <button mat-button (click)="edit(row.idExam)">
+            <mat-icon> node_edit </mat-icon>
+        </button>
+
+        <button mat-button color="accent" (click)="delete(row.idExam)">
+            <mat-icon> delete </mat-icon>
+        </button>
+
+     </ng-template>
+
+</app-mat-table>
