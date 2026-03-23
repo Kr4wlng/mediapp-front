@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../../../environments/environment.development';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,9 @@ import { environment } from '../../../environments/environment.development';
 })
 export class DashboardComponent implements OnInit{
 
-  username: string
+  username: string;
+
+  constructor(private menuService: MenuService){}
 
   ngOnInit(): void {
     const helper = new JwtHelperService();
@@ -18,6 +21,8 @@ export class DashboardComponent implements OnInit{
     const decodedToken = helper.decodeToken(token);
 
     this.username = decodedToken.sub;
+
+    this.menuService.getMenusByUser(this.username).subscribe(data => this.menuService.setMenuChange(data))
   }
 
 }

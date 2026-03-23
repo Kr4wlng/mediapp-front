@@ -42,11 +42,20 @@
             
             <img src="mitocode.png" width="180" style="margin-left: 20px;">
 
-            <!-- mat-divider => Línea que dívide una opción de otra en la barra lateral -->
+            @for (m of menus; track $index) {
+                <mat-divider></mat-divider>
+                <button class="myButton" [routerLinkActive]="['active']" mat-menu-item (click)="sidenav.toggle()"
+                    routerLink="{{m.url}}" style="cursor: pointer;">
+                    <mat-icon> {{m.icon}} </mat-icon>
+                    <span> {{m.name}} </span>
+                </button>
+            }
+
+            <!-- mat-divider => Línea que dívide una opción de otra en la barra lateral
             <mat-divider></mat-divider>
 
-            <!-- Configuramos los botones de opciones para el menú de la barra lateral (Sidenav) -->
-            <!-- routerLink => Es el argumento que nos permitirá hacer la navegación por rutas -->
+            Configuramos los botones de opciones para el menú de la barra lateral (Sidenav)
+            routerLink => Es el argumento que nos permitirá hacer la navegación por rutas
             <button class="myButton" [routerLinkActive]="['active']" mat-menu-item (click)="sidenav.toggle()"
                 routerLink="/pages/search" style="cursor: pointer;">
                 <mat-icon> search </mat-icon>
@@ -101,9 +110,9 @@
                 <span> Report </span>
             </button>
 
-            <mat-divider></mat-divider>
+            <mat-divider></mat-divider> -->
 
-        </mat-sidenav>
+        </mat-sidenav> 
 
         <!-- mat-sidenav-content => Hace referencia al contenido que se mostrará -->
         <mat-sidenav-content>
