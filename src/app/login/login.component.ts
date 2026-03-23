@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatCard } from "@angular/material/card";
 import { MaterialModule } from '../material/material.module';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { environment } from '../../environments/environment.development';
@@ -18,15 +18,17 @@ export class LoginComponent {
   password: string;
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ){}
 
   login(){
     this.loginService.login(this.username, this.password).subscribe(data => {
       // console.log(data);
-      sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
+      sessionStorage.setItem(environment.TOKEN_NAME, data.acces_token);
 
       // let token: string = sessionStorage.getItem(environment.TOKEN_NAME);
+      this.router.navigate(['/pages/patient']);
     });
   }
 
