@@ -28,7 +28,7 @@ export class LoginComponent {
       sessionStorage.setItem(environment.TOKEN_NAME, data.acces_token);
 
       // let token: string = sessionStorage.getItem(environment.TOKEN_NAME);
-      this.router.navigate(['/pages/patient']);
+      this.router.navigate(['/pages/dashboard']);
     });
   }
 

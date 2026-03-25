@@ -13,13 +13,11 @@ export class MenuService extends GenericService<Menu>{
   private menuChange = new Subject<Menu[]>();
 
   constructor(http: HttpClient){
-    super(
-      http,
-      `${environment.HOST}/menus`);
+    super(http,`${environment.HOST}/menus`);
   }
 
   getMenusByUser(username: string){
-    return this.http.post<Menu[]>(`${this.url}/user`, username);
+    return this.http.post<Menu[]>(`${environment.HOST}/menus/user`, username);
   }
 
   getMenuChange(){

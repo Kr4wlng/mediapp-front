@@ -9,6 +9,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { RouterLinkWithHref } from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MenuService } from '../../services/menu.service';
+import { Menu } from '../../models/menu';
 
 @Component({
   selector: 'app-patient',
@@ -20,6 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PatientComponent implements OnInit{
 
   patients: Patient[] = [];
+  menus: Menu[];
   dataSource: MatTableDataSource<Patient>;
   // displayedColumns: string[] = ['idPatient', 'firstName', 'lastName', 'dni'];
   columnsDefinitions = [
@@ -32,6 +35,7 @@ export class PatientComponent implements OnInit{
 
   constructor(
     private patientService: PatientService,
+    private menuService: MenuService,
     private _snackBar: MatSnackBar
   ){}
 
@@ -44,6 +48,7 @@ export class PatientComponent implements OnInit{
   // ngOnInit => Método que traerá la data apenas se levante el componente de pacientes
   ngOnInit(): void{
     // this.patientService.findAll().subscribe(data => this.createTable(data));
+
     this.patientService.listPageable(0, 2).subscribe(data => this.createTable(data));
 
     this.patientService.getPatientChange().subscribe(data => this.createTable(data));
