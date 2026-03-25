@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit{
 
     this.username = decodedToken.sub;
 
-    this.menuService.getMenusByUser(this.username).subscribe(data => this.menuService.setMenuChange(data))
+    this.menuService.getMenusByUser(this.username).subscribe(data => this.menuService.setMenuChange(data));
   }
 
 }

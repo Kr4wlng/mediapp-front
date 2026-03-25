@@ -17,7 +17,7 @@ export class MenuService extends GenericService<Menu>{
   }
 
   getMenusByUser(username: string){
-    return this.http.post<Menu[]>(`${environment.HOST}/menus/user`, username);
+    return this.http.post<Menu[]>(`${this.url}/user`, username);
   }
 
   getMenuChange(){

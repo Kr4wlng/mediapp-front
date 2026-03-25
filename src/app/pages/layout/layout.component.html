@@ -38,14 +38,14 @@
     <!-- mat-sidenav-container => Hace referencia al contenedor total que contiene a la barra lateral y el contenido -->
     <mat-sidenav-container class="example-sidenav-container">
         <!-- mat-sidenav => Es la barra lateral y en ella pondremos las opciones que deseemos que vayan -->
-        <mat-sidenav #sidenav style="width: 250px;" mode="over">
+        <mat-sidenav #sidenav style="width: 250px" mode="over">
             
-            <img src="mitocode.png" width="180" style="margin-left: 20px;">
+            <img src="mitocode.png" width="128" style="margin-left: 20px">
 
             @for (m of menus; track $index) {
                 <mat-divider></mat-divider>
                 <button class="myButton" [routerLinkActive]="['active']" mat-menu-item (click)="sidenav.toggle()"
-                    routerLink="{{m.url}}" style="cursor: pointer">
+                    routerLink='{{m.url}}' style="cursor: pointer">
                     <mat-icon> {{m.icon}} </mat-icon>
                     <span>{{m.name}}</span>
                 </button>
