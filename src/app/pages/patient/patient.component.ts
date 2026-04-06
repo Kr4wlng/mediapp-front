@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../models/patient';
 import { MatTableDataSource } from '@angular/material/table';
@@ -57,12 +57,17 @@ export class PatientComponent implements OnInit{
     });
   }
 
-  createTable(data: any){
-    // this.dataSource = new MatTableDataSource(data);
-    this.totalElements = data.totalElements;
-    this.dataSource = new MatTableDataSource(data.content);
+  createTable(data: any) {
+    if (Array.isArray(data)) {
+      this.totalElements = data.length;
+      this.dataSource = new MatTableDataSource(data);
+    } else {
+      this.totalElements = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+    }
+    
     this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
   }
 
   // getDisplayedColumns => Método que mostrará las columnas que tendrá la tabla

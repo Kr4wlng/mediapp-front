@@ -24,13 +24,21 @@ export class LayoutComponent implements OnInit{
 
   constructor(
     private loginService: LoginService,
-    private menusService: MenuService
+    private menuService: MenuService,
   ){}
 
   ngOnInit(): void {
+  const helper = new JwtHelperService();
+    const token = sessionStorage.getItem(environment.TOKEN_NAME);
+    const decodedToken = helper.decodeToken(token);
 
-    this.menusService.getMenuChange().subscribe(data => this.menus = data);
+    this.username = decodedToken.sub;
 
+    this.menuService.getMenusByUser(this.username).subscribe((data) => {
+      this.menus = data;
+      console.log(data);
+    });
+    console.log(this.menus)
   }
 
   logout(){

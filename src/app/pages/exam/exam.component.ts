@@ -1,39 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../material/material.module';
-import { MatTableComponent } from '../../shared/mat-table/mat-table.component';
 import { Exam } from '../../models/exam';
 import { ExamService } from '../../services/exam.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MenuService } from '../../services/menu.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-exam',
-  imports: [ MaterialModule, MatTableComponent ],
+  standalone:true,
+  imports: [MaterialModule, RouterLink],
   templateUrl: './exam.component.html',
   styleUrl: './exam.component.css',
 })
-export class ExamComponent implements OnInit{
+export class ExamComponent implements OnInit {
+  // displayedColumns: string[] = ['nameExam', 'descriptionExam', 'actions'];
+  dataSource: MatTableDataSource<Exam>;
+  exams: Exam[]=[];
+  totalElements: number = 0;
+  columnsDefinitions = [
+    { def: 'idExam', label: 'idExam', hide: true },
+    { def: 'nameExam', label: 'nameExam', hide: false },
+    { def: 'descriptionExam', label: 'descriptionExam', hide: false },
+    { def: 'actions', label: 'actions', hide: false }
+  ]
 
-  exams: Exam[] = [];
-  columnsDefinition = [
-    { def: 'idExam', label: 'ID' },
-    { def: 'nameExam', label: 'Name' },
-    { def: 'descriptionExam', label: 'Description' },
-    { def: 'actions', label: 'Actions' }
-  ];
+  constructor(
+    private examService: ExamService,
+    private menuService: MenuService,
+    private _snackBar: MatSnackBar,
+  ) {}
 
-  constructor(private examService: ExamService){}
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.examService.findAll().subscribe(data => {
-      this.exams = data;
-    })
+
+    this.examService.listPageable(0, 5).subscribe(data => this.createTable(data));
+
+    this.examService.getExamChange().subscribe(data => this.createTable(data));
+    
+    this.examService.getMessageChange().subscribe(data => {
+      this._snackBar.open(data, 'INFO', {
+        duration: 2000, 
+        verticalPosition: 'top', 
+        horizontalPosition: 'right'
+      });
+    });
+
+    /* this.examService.findAll().subscribe(data => {
+      this.createTable(data);
+      console.log(data);
+    });
+
+    this.examService.getExamChange().subscribe(data => this.createTable(data));
+    this.examService.getMessageChange().subscribe(data => {
+      this._snackBar.open(data, 'INFO', {duration: 2000, verticalPosition: 'top', horizontalPosition: 'right'})
+    });
+    // this.loadExams(); */
   }
 
-  edit(idExam: number){
-    // Lógica para editar examen
+  createTable(data: any) {
+    if (Array.isArray(data)) {
+      this.totalElements = data.length;
+      this.dataSource = new MatTableDataSource(data);
+    } else {
+      this.totalElements = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+    }
+    
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  delete(idExam: number){
-    // Lógica para eliminar examen
+  getDisplayedColumns() {
+    return this.columnsDefinitions.filter(cd => !cd.hide).map(cd => cd.def);
   }
 
+  /* loadExams(): void {
+    this.examService.findAll().subscribe({
+      next: (data) => {
+        console.log('Datos recibidos:', data);
+        this.dataSource.data = data;
+        this.cdr.detectChanges();
+        console.log('DataSource actualizado:', this.dataSource.data);
+      },
+      error: (err) => {
+        console.error('Error:', err);
+      }
+    });
+  } */
+
+  applyFilter(e: any) {
+    this.dataSource.filter = e.target.value.trim();
+  }
+
+  delete(idExam: number): void {
+    console.log('Eliminar:', idExam);
+  }
+
+  showMore(e: any) {
+    this.examService.listPageable(e.pageIndex, e.pageSize).subscribe(data => this.createTable(data));
+  }
 }

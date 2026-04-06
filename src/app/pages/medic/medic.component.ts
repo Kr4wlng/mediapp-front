@@ -37,7 +37,7 @@ export class MedicComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.medicService.findAll().subscribe(data => this.createTable(data));
+    this.medicService.findAll().subscribe(data => {this.createTable(data); console.log(data)});
 
     this.medicService.getMedicChange().subscribe(data => this.createTable(data));
     this.medicService.getMessageChange().subscribe(data => this._snackBar.open(data, "INFO", {duration: 2000}))

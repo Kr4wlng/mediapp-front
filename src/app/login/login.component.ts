@@ -25,7 +25,7 @@ export class LoginComponent {
   login(){
     this.loginService.login(this.username, this.password).subscribe(data => {
       // console.log(data);
-      sessionStorage.setItem(environment.TOKEN_NAME, data.acces_token);
+      sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
 
       // let token: string = sessionStorage.getItem(environment.TOKEN_NAME);
       this.router.navigate(['/pages/dashboard']);
