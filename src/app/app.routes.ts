@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
+import { Not404Component } from './pages/not404/not404.component';
 
 // Los archivos routes.ts sirven para definir nuestras reglas de navegacion
 export const routes: Routes = [
@@ -22,6 +23,6 @@ export const routes: Routes = [
            que hayamos definido (pages.routes). De ahi vamos a decir que ese elemento (x) exponga
            el archivo de routeo (x.pagesRoutes)
         */
-    }
-
+    },
+    { path: "**", component: Not404Component }
 ];

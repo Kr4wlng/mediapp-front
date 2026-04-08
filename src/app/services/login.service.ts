@@ -29,5 +29,9 @@ export class LoginService {
     sessionStorage.clear();
     this.router.navigate(['login']);
   }
+
+  isLogged(){
+    return sessionStorage.getItem(environment.TOKEN_NAME) != null;
+  }
   
 }
